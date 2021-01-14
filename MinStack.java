@@ -5,19 +5,27 @@ class MinStack {
     ArrayList<Integer> arr;
     public MinStack() {
         arr = new ArrayList<>();
-        //min = Integer.MAX_VALUE;
+        min = Integer.MAX_VALUE;
     }
     
     public void push(int x) {
         arr.add(x);
-        /*if (x<min) {
+        if (arr.size()==1) min=x;
+        else if (x<min) {
             min=x;
-        }*/
+        }
     }
     
     public void pop() {
+        if (arr.get(arr.size()-1)==min) {
+            min = arr.get(0);
+            for (int i=1;i<arr.size()-1;i++) {
+                if (arr.get(i)<min) {
+                    min = arr.get(i);
+                }
+            }
+        }
         arr.remove(arr.size()-1);
-        
     }
     
     public int top() {
@@ -25,12 +33,6 @@ class MinStack {
     }
     
     public int getMin() {
-        min = arr.get(0);
-        for (int i=1;i<arr.size();i++) {
-            if (arr.get(i)<min) {
-                min = arr.get(i);
-            }
-        }
         return min;
     }
 }
